@@ -21,16 +21,103 @@
 var bio = {
     "name": "Raymond Jenkins",
     "role": "FEND Ninja",
-    "welcomemessage": "This is my bio. WELCOME!",
-    "biopic": "images/fry.jpg",
-    "contactinfo": {
+    "contacts": {
         "mobile": "999-1234",
         "email": "ray@coolcorp.com",
-        "guthub": "RayCJenkins",
+        "github": "RayCJenkins",
         "twitter": "@Refoax",
-        "locaction": "West Jordan, UT"
+        "location": "West Jordan, UT"
     },
-    "skills": ["Delphi", "OO-Design", "Database Design"]
+    "welcomeMessage": "Software Developer able to create great software for your business needs.",
+    "skills": ["Software Engineering", "C", "Delphi", "OO-Design", "Database Design", "SQL", "Agile Methodologies"],
+    "biopic": "images/Ray_and_his_kindle.webp",
+    "display": function() {
+        var formattedName = HTMLheaderName.replace("%data%", this.name);
+        var formattedRole = HTMLheaderRole.replace("%data%", this.role);
+        var formattedBioPic = HTMLbioPic.replace("%data%", this.biopic);
+        var formattedWelcomeMessage = HTMLwelcomeMsg.replace("%data%", this.welcomeMessage);
+        var formattedMobile = HTMLmobile.replace("%data%", this.contacts.mobile);
+        var formattedEmail = HTMLemail.replace("%data%", this.contacts.email);
+        var formattedGitHub = HTMLgithub.replace("%data%", this.contacts.github);
+        var formattedTwitter = HTMLtwitter.replace("%data%", this.contacts.twitter);
+
+        var main = $("#main");
+        var header = $('#header');
+        var top_contacts = $('#topContacts');
+        var footer_contacts = $('#footerContacts');
+
+        main.prepend(formattedRole);
+        main.prepend(formattedName);
+        header.append(formattedBioPic);
+        header.append(formattedWelcomeMessage);
+        top_contacts.append(formattedMobile);
+        top_contacts.append(formattedEmail);
+        top_contacts.append(formattedGitHub);
+        top_contacts.append(formattedTwitter);
+        footer_contacts.append(formattedMobile);
+        footer_contacts.append(formattedEmail);
+        footer_contacts.append(formattedGitHub);
+        footer_contacts.append(formattedTwitter);
+        if (this.skills.length > 0) {
+            header.append(HTMLskillsStart);
+            var skills = $('#skills');
+            for(i = 0; i < this.skills.length; i++){
+                var my_skill = HTMLskills.replace("%data%", this.skills[i]);
+                skills.append(my_skill);
+            }
+        }        
+    }
+};
+var education = {
+    "schools": [
+        {
+            "name": "BYU",
+            "location": "Provo, UT",
+            "degree": "Computer Science",
+            "majors": ["Computer Science", "Math"],
+            "dates": "1987-1992",
+            "url": "http://byu.edu"
+        },
+        {
+            "name": "SLCC",
+            "location": "West Valley, UT",
+            "degree": "Computer Science",
+            "majors": ["Computer Science"],
+            "dates": "1992-2008",
+            "url": "http://slcc.edu",
+        }
+    ],
+    "onlineCourses": [
+        {
+            "title": "Introduction to Javascript",
+            "school": "Udacity",
+            "dates": "2015-2016",
+            "url": "https://udacity.com/FEND"
+        },
+        {
+            "title": "Introduction to JQUERY",
+            "school": "Udacity",
+            "dates": "2015-2016",
+            "url": "https://udacity.com/FEND"
+        }
+    ],
+    "display": function() {
+        var formattedName = HTMLheaderName.replace("%data%", bio.name);
+        var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
+        var formattedBioPic = HTMLbioPic.replace("%data%", bio.biopic);
+        var formattedContactInfo = HTMLcontactGeneric.replace("%contact%", bio.contactinfo.toLocaleUpperCase);
+
+        $("#main").prepend(formattedRole);
+        $("#main").prepend(formattedName);
+        $("#main").append(formattedBioPic);
+        if (bio.skills.length > 0) {
+            $("#header").append(HTMLskillsStart);
+            for(i = 0; i < bio.skills.length; i++){
+                var my_skill = HTMLskills.replace("%data%", bio.skills[i]);
+                $("#skills").append(my_skill);
+            }
+        }        
+    }
 };
 var work = {
     "jobs": [
@@ -74,54 +161,10 @@ var projects = {
         }
     ]
 };
-var education = {
-    "schools": [
-        {
-            "name": "BYU",
-            "location": "Provo, UT",
-            "degreedates": "1992",
-            "degreeurls": "http://byu.edu",
-            "major": ["Computer Science", "Math"]
-        },
-        {
-            "name": "SLCC",
-            "location": "West Valley, UT",
-            "degreedates": "2008",
-            "degreeurls": "http://slcc.edu",
-            "major": ["Computer Science"]
-        }
-    ],
-    "onlineCourses": [
-        {
-            "title": "Introduction to Javascript",
-            "school": "Udacity",
-            "dates": "2015-2016",
-            "url": "https://udacity.com/FEND"
-        },
-        {
-            "title": "Introduction to JQUERY",
-            "school": "Udacity",
-            "dates": "2015-2016",
-            "url": "https://udacity.com/FEND"
-        }
-    ]
-};
+console.log('before display');
+bio.display();
+console.log('after display');
 
-var formattedName = HTMLheaderName.replace("%data%", bio.name);
-var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
-var formattedBioPic = HTMLbioPic.replace("%data%", bio.biopic);
-var formattedContactInfo = HTMLcontactGeneric.replace("%contact%", bio.contactinfo.toLocaleUpperCase);
-
-$("#main").prepend(formattedRole);
-$("#main").prepend(formattedName);
-$("#main").append(formattedBioPic);
-if (bio.skills.length > 0) {
-    $("#header").append(HTMLskillsStart);
-    for(i = 0; i < bio.skills.length; i++){
-    	var my_skill = HTMLskills.replace("%data%", bio.skills[i]);
-    	$("#skills").append(my_skill);
-    }
-}
 function displayWork(){
     for(i in work.jobs){
         $("#workExperience").append(HTMLworkStart);
