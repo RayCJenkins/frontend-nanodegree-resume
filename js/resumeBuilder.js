@@ -93,10 +93,10 @@ var education = {
                 console.log(schoolName);
                 console.log(schoolMajor);
                 education.append(HTMLschoolStart);
-                $(".education_entry:last").append(schoolName);
-                $(".education_entry:last").append(schoolDates);
-                $(".education_entry:last").append(schoolLocation);
-                $(".education_entry:last").append(schoolMajor);
+                $("#education_entry:last").append(schoolName);
+                $("#education_entry:last").append(schoolDates);
+                $("#education_entry:last").append(schoolLocation);
+                $("#education_entry:last").append(schoolMajor);
 
             }
         }
