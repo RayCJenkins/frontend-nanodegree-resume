@@ -1,6 +1,6 @@
 var bio = {
     "name": "Raymond Jenkins",
-    "role": "FEND Ninja",
+    "role": "User Experience Implementer",
     "contacts": {
         "mobile": "999-1234",
         "email": "ray@coolcorp.com",
@@ -154,12 +154,12 @@ var projects = {
         "title": "DSAMS - Sales and Marketing",
         "dates": "1993-2010",
         "description": "Managed Sales Contact, Order Information and Marketing Campaigns",
-        "images": ["images/fry.jpg", "images/fry.jpg"]
+        "images": ["images/DSAMS1.webp", "images/DSAMS2.webp"]
     }, {
         "title": "Cirris Interface Builder",
         "dates": "2015-2016",
         "description": "Tool to create XML files that describe Screens and Buttons. Can be localized",
-        "images": ["images/fry.jpg", "images/fry.jpg", "images/fry.jpg"]
+        "images": ["images/CirrisUI1.webp", "images/CirrisUI2.webp", "images/CirrisUI3.webp"]
     }],
     "display": function() {
         projects.projects.forEach(function(project) {
