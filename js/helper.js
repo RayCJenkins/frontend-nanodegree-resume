@@ -105,8 +105,6 @@ Start here! initializeMap() is called when page is loaded.
 function initializeMap() {
 
   var locations;
-  var contentStrings;
-
 
   var mapOptions = {
     disableDefaultUI: true
@@ -127,11 +125,9 @@ function initializeMap() {
 
     // initializes an empty array
     var locations = [];
-    var contents = [];
 
     // adds the single location property from bio to the locations array
     locations.push(bio.contacts.location);
-    contents.push(bio.name);
 
     // iterates through school locations and appends each location to
     // the locations array. Note that forEach is used for array iteration
@@ -139,7 +135,6 @@ function initializeMap() {
     // https://udacity.github.io/frontend-nanodegree-styleguide/javascript.html#for-in-loop
     education.schools.forEach(function(school){
       locations.push(school.location);
-      contents.push(school.name);
     });
 
     // iterates through work locations and appends each location to
@@ -148,13 +143,10 @@ function initializeMap() {
     // https://udacity.github.io/frontend-nanodegree-styleguide/javascript.html#for-in-loop
     work.jobs.forEach(function(job){
       locations.push(job.location);
-      contents.push(job.employer);
     });
 
-    return {
-      location: locations,
-      content: contents
-    }
+    return locations;
+
   }
 
   /*
@@ -235,13 +227,11 @@ function initializeMap() {
   window.mapBounds = new google.maps.LatLngBounds();
 
   // locations is an array of location strings returned from locationFinder()
-  var locations_and_contents = locationFinder();
-  locations = locations_and_contents.location;
-  contentStrings = locations_and_contents.content;
+  var locations = locationFinder();
 
   // pinPoster(locations) creates pins on the map for each location in
   // the locations array
-  pinPoster(locations, contentStrings);
+  pinPoster(locations);
 
 }
 
