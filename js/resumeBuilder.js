@@ -22,9 +22,9 @@ var bio = {
         var formattedTwitter = HTMLtwitter.replace("%data%", this.contacts.twitter);
 
         var main = $("#main");
-        var header = $('#header');
-        var top_contacts = $('#topContacts');
-        var footer_contacts = $('#footerContacts');
+        var header = $("#header");
+        var top_contacts = $("#topContacts");
+        var footer_contacts = $("#footerContacts");
 
         main.prepend(formattedRole);
         main.prepend(formattedName);
@@ -38,209 +38,153 @@ var bio = {
         footer_contacts.append(formattedEmail);
         footer_contacts.append(formattedGitHub);
         footer_contacts.append(formattedTwitter);
-        if (this.skills.length > 0) {
+        if (bio.skills.length > 0) {
             header.append(HTMLskillsStart);
-            var skills = $('#skills');
-            for(i = 0; i < this.skills.length; i++){
-                var my_skill = HTMLskills.replace("%data%", this.skills[i]);
-                skills.append(my_skill);
-            }
-        }        
+            var my_skills = $("#skills");
+            bio.skills.forEach(function(skill) {
+                var my_skill = HTMLskills.replace("%data%", skill);
+                my_skills.append(my_skill);
+            });
+        }
     }
 };
+
 var education = {
-    "schools": [
-        {
-            "name": "BYU",
-            "location": "Provo, UT",
-            "degree": "Computer Science",
-            "majors": ["Computer Science", "Math"],
-            "dates": "1987-1992",
-            "url": "http://byu.edu"
-        },
-        {
-            "name": "SLCC",
-            "location": "West Valley, UT",
-            "degree": "Computer Science",
-            "majors": ["Computer Science"],
-            "dates": "1992-2008",
-            "url": "http://slcc.edu",
-        }
-    ],
-    "onlineCourses": [
-        {
-            "title": "Introduction to Javascript",
-            "school": "Udacity",
-            "dates": "2015-2016",
-            "url": "https://udacity.com/FEND"
-        },
-        {
-            "title": "Introduction to JQUERY",
-            "school": "Udacity",
-            "dates": "2015-2016",
-            "url": "https://udacity.com/FEND"
-        }
-    ],
+    "schools": [{
+        "name": "BYU",
+        "location": "Provo, UT",
+        "degree": "Computer Science",
+        "majors": ["Computer Science", "Math"],
+        "dates": "1987-1992",
+        "url": "http://byu.edu"
+    }, {
+        "name": "SLCC",
+        "location": "West Valley, UT",
+        "degree": "Computer Science",
+        "majors": ["Computer Science"],
+        "dates": "1992-2008",
+        "url": "http://slcc.edu",
+    }],
+    "onlineCourses": [{
+        "title": "Introduction to Javascript",
+        "school": "Udacity",
+        "dates": "2015-2016",
+        "url": "https://udacity.com/FEND"
+    }, {
+        "title": "Introduction to JQUERY",
+        "school": "Udacity",
+        "dates": "2015-2016",
+        "url": "https://udacity.com/FEND"
+    }],
     "display": function() {
-        var education = $('#education');
-        if (this.schools.length > 0) {
-            for(i = 0; i < this.schools.length; i++){
-                var schoolName = HTMLschoolName.replace("%data%", this.schools[i].name) + HTMLschoolDegree.replace("%data%", this.schools[i].degree);
-                schoolName = schoolName.replace("#", this.schools[i].url);
-                var schoolDates = HTMLschoolDates.replace("%data%", this.schools[i].dates);
-                var schoolLocation = HTMLschoolLocation.replace("%data%", this.schools[i].location);
-                var schoolMajor = HTMLschoolMajor.replace("%data%", this.schools[i].majors)
-                console.log(schoolName);
-                console.log(schoolMajor);
-                education.append(HTMLschoolStart);
-                $("#education_entry:last").append(schoolName);
-                $("#education_entry:last").append(schoolDates);
-                $("#education_entry:last").append(schoolLocation);
-                $("#education_entry:last").append(schoolMajor);
+        var my_education = $("#education");
+        education.schools.forEach(function(school) {
+            my_education.append(HTMLschoolStart);
+            var education_entry = $(".education-entry:last");
+            var schoolName = HTMLschoolName.replace("%data%", school.name) + HTMLschoolDegree.replace("%data%", school.degree);
+            schoolName = schoolName.replace("#", school.url);
+            var schoolDates = HTMLschoolDates.replace("%data%", school.dates);
+            var schoolLocation = HTMLschoolLocation.replace("%data%", school.location);
+            var schoolMajor = HTMLschoolMajor.replace("%data%", school.majors);
 
-            }
-        }
-        if (this.onlineCourses.length > 0){
-            education.append(HTMLonlineClasses);
-            for(i = 0; i < this.onlineCourses.length; i++){
-                var classTitle = HTMLonlineTitle.replace("#", this.onlineCourses[i].url);
-                classTitle = classTitle.replace('%data%', this.onlineCourses[i].title) + HTMLonlineSchool.replace('%data%', this.onlineCourses[i].school);
-                education.append(classTitle);
-                var classDates = HTMLonlineDates.replace('%data%', this.onlineCourses[i].dates);
-                education.append(classDates);
-                var classOnlineURL = HTMLonlineURL.replace('%data%', this.onlineCourses[i].url);
-                education.append(classOnlineURL);
-            }
+            education_entry.append(schoolName);
+            education_entry.append(schoolDates);
+            education_entry.append(schoolLocation);
+            education_entry.append(schoolMajor);
+        });
+        if (education.onlineCourses.length > 0) {
+            my_education.append(HTMLonlineClasses);
+            education.onlineCourses.forEach(function(onlineClass) {
+                my_education.append(HTMLonlineClassStart);
+                var onlineclass_entry = $(".onlineclass-entry");
+                var classTitle = HTMLonlineTitle.replace("#", onlineClass.url);
+                classTitle = classTitle.replace("%data%", onlineClass.title) + HTMLonlineSchool.replace("%data%", onlineClass.school);
+                var classDates = HTMLonlineDates.replace("%data%", onlineClass.dates);
+                var classOnlineURL = HTMLonlineURL.replace("%data%", onlineClass.url);
+
+                onlineclass_entry.append(classTitle);
+                onlineclass_entry.append(classDates);
+                onlineclass_entry.append(classOnlineURL);
+            });
         }
 
     }
 };
+
 var work = {
-    "jobs": [
-        {
-            "employer": "Jackson & Jenkins",
-            "title": "Laborer",
-            "location": "South Jordan, UT",
-            "dates": "1987-1992",
-            "description": "Jackson and Jenkins was in JavaScript. You'll be breaking them down as part of" +
-                           "a quiz. Essentially, the next few lines are checking to see if you have not " +
-                           "changed each section of the resume. If you have not made any changes to a section " +
-                           "of the resume, then that part of the resume does not show up. More on this in the" +
-                           "course."
-        },
-        {
-            "employer": "Cirris Systems Corp",
-            "title": "Developer",
-            "location": "Salt Lake City, UT",
-            "dates": "1992-present",
-            "description": "Cirris Systems Corp was JavaScript. You'll be breaking them down as part of" +
-                           "a quiz. Essentially, the next few lines are checking to see if you have not " +
-                           "changed each section of the resume. If you have not made any changes to a section " +
-                           "of the resume, then that part of the resume does not show up. More on this in the" +
-                           "course."
-        }
-    ],
+    "jobs": [{
+        "employer": "Jackson & Jenkins",
+        "title": "Laborer",
+        "location": "South Jordan, UT",
+        "dates": "1987-1992",
+        "description": "Jackson and Jenkins was in JavaScript. You'll be breaking them down as part of" +
+            "a quiz. Essentially, the next few lines are checking to see if you have not " +
+            "changed each section of the resume. If you have not made any changes to a section " +
+            "of the resume, then that part of the resume does not show up. More on this in the" +
+            "course."
+    }, {
+        "employer": "Cirris Systems Corp",
+        "title": "Developer",
+        "location": "Salt Lake City, UT",
+        "dates": "1992-present",
+        "description": "Cirris Systems Corp was JavaScript. You'll be breaking them down as part of" +
+            "a quiz. Essentially, the next few lines are checking to see if you have not " +
+            "changed each section of the resume. If you have not made any changes to a section " +
+            "of the resume, then that part of the resume does not show up. More on this in the" +
+            "course."
+    }],
     "display": function() {
-        for(i in work.jobs){
+        work.jobs.forEach(function(job) {
             $("#workExperience").append(HTMLworkStart);
-            var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[i].employer);
-            var formattedRole = HTMLworkTitle.replace("%data%", work.jobs[i].title);
-            var formattedDate = HTMLworkDates.replace("%data%", work.jobs[i].dates);
-            var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[i].location);
-            var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[i].description);
+            var formattedEmployer = HTMLworkEmployer.replace("%data%", job.employer);
+            var formattedRole = HTMLworkTitle.replace("%data%", job.title);
+            var formattedDate = HTMLworkDates.replace("%data%", job.dates);
+            var formattedLocation = HTMLworkLocation.replace("%data%", job.location);
+            var formattedDescription = HTMLworkDescription.replace("%data%", job.description);
             $(".work-entry:last").append(formattedEmployer + formattedRole);
             $(".work-entry:last").append(formattedLocation);
             $(".work-entry:last").append(formattedDate);
             $(".work-entry:last").append(formattedDescription);
-        }
+        });
     }
-};  
+};
+
 var projects = {
-    "projects": [
-        {
-            "title": "DSAMS - Sales and Marketing",
-            "dates": "1993-2010",
-            "description": "Managed Sales Contact, Order Information and Marketing Campaigns",
-            "images": ["images/fry.jpg", "images/fry.jpg"]
-        },
-        {
-            "title": "Cirris Interface Builder",
-            "dates": "2015-2016",
-            "description": "Tool to create XML files that describe Screens and Buttons. Can be localized",
-            "images": ["images/fry.jpg", "images/fry.jpg", "images/fry.jpg"]
-        }
-    ],
+    "projects": [{
+        "title": "DSAMS - Sales and Marketing",
+        "dates": "1993-2010",
+        "description": "Managed Sales Contact, Order Information and Marketing Campaigns",
+        "images": ["images/fry.jpg", "images/fry.jpg"]
+    }, {
+        "title": "Cirris Interface Builder",
+        "dates": "2015-2016",
+        "description": "Tool to create XML files that describe Screens and Buttons. Can be localized",
+        "images": ["images/fry.jpg", "images/fry.jpg", "images/fry.jpg"]
+    }],
     "display": function() {
-        for(i in projects.projects){
+        projects.projects.forEach(function(project) {
             $("#projects").append(HTMLprojectStart);
-            var project_title = HTMLprojectTitle.replace("%data%", projects.projects[i].title);
-            var project_dates = HTMLprojectDates.replace("%data%", projects.projects[i].dates);
-            var project_desc = HTMLprojectDescription.replace("%data%", projects.projects[i].description);
+            var project_title = HTMLprojectTitle.replace("%data%", project.title);
+            var project_dates = HTMLprojectDates.replace("%data%", project.dates);
+            var project_desc = HTMLprojectDescription.replace("%data%", project.description);
             $(".project-entry:last").append(project_title);
             $(".project-entry:last").append(project_dates);
             $(".project-entry:last").append(project_desc);
 
-            for(j in projects.projects[i].images){
-                var project_image = HTMLprojectImage.replace("%data%", projects.projects[i].images[j]);
+            project.images.forEach(function(image) {
+                var project_image = HTMLprojectImage.replace("%data%", image);
+                project_image = project_image.replace("%alt%", image);
                 $(".project-entry:last").append(project_image);
-            }
-        }
+            });
+        });
     }
 };
-console.log('before display');
+
 bio.display();
 work.display();
 projects.display();
 education.display();
-console.log('after display');
 
 
 
 $("#mapDiv").append(googleMap);
-
-
-
-
-//stuff I might need later
-//var awesomeThoughts = "I am Raymond and I am AWESOME";
-//$("#main").append("Raymond Jenkins");
-//console.log(awesomeThoughts);
-//var funThoughts = awesomeThoughts.replace("AWESOME", "FUN");
-//$("#main").append(funThoughts);
-//var myName = "Raymond Jenkins";
-//var myRole = "FEND Ninja";
-//var formattedName = HTMLheaderName.replace("%data%", myName);
-//var formattedRole = HTMLheaderRole.replace("%data%", myRole);
-//$("#main").prepend(formattedRole);
-//$("#main").prepend(formattedName);
-//var s = "audacity";
-//var name = "alBert Einstein"
-//var j = name.indexOf(" ");
-//var newName = name.slice(0,1).toLocaleUpperCase() + name.slice(1,j-1).toLocaleLowerCase() + name.slice(j+1).toLocaleUpperCase();
-// var formattedWelcomeMessage = HTMLwelcomeMsg.replace("%data", bio.welcomemessage);
-// $("#main").append(formattedContactInfo);
-// $("#main").append(formattedWelcomeMessage);
-//$("#main").append(work["position"]);
-//$("#main").append(education.schools[0].name);
-//displayWork();
-//$(document).click(function(loc){
-//  logClicks(loc.pageX, loc.pageY/);
-//});
-// projects.display = function() {
-    // for(i in projects.projects){
-//         $("#projects").append(HTMLprojectStart);
-//         var project_title = HTMLprojectTitle.replace("%data%", projects.projects[i].title);
-//        var project_dates = HTMLprojectDates.replace("%data%", projects.projects[i].dates);
-//        var project_desc = HTMLprojectDescription.replace("%data%", projects.projects[i].description);
-//        $(".project-entry:last").append(project_title);
-//        $(".project-entry:last").append(project_dates);
-//        $(".project-entry:last").append(project_desc);
-//
-//        for(j in projects.projects[i].images){
-//            var project_image = HTMLprojectImage.replace("%data%", projects.projects[i].images[j]);
-//            $(".project-entry:last").append(project_image);
-//
-//        }
-//    }
-//};
-//projects.display();
